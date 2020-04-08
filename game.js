@@ -1,7 +1,11 @@
 var config = {
     type: Phaser.AUTO,
-    width:800,
-    height:600,
+    width:960,
+    height:540,
+    backgroundColor: '#ffffff',
+    scale: {
+        autoCenter: true
+    },
     physics: {
         default:'arcade',
         arcade: {
