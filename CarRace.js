@@ -4,7 +4,7 @@ class CarRace extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('land', './assets/land.png')
+        this.load.image('land', './assets/carrace back.png')
         this.load.image('street', './assets/street.png')
         this.load.image('car_1', './assets/car_1.png')
         this.load.image('car_2', './assets/car_2.png')
