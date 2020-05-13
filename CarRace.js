@@ -14,6 +14,8 @@ class CarRace extends Phaser.Scene {
 
     create() {
         this.carSpeed = 50;
+        this.carRotation = 0.1;
+
         this.speedCar_1 = 0;
         this.speedCar_2 = 0;
         this.staticFriction = 1;
@@ -91,10 +93,10 @@ class CarRace extends Phaser.Scene {
     CarDriveCheck()
     {
         if (this.cursors.left.isDown) {
-            this.car_1.rotation -= 0.1;
+            this.car_1.rotation -= this.carRotation;
         }   
         if (this.cursors.right.isDown) {
-            this.car_1.rotation += 0.1;
+            this.car_1.rotation += this.carRotation;
         }
 
         if(this.cursors.up.isDown)
@@ -109,10 +111,10 @@ class CarRace extends Phaser.Scene {
         }
 
         if (this.wasdCursors.A.isDown) {
-            this.car_2.rotation -= 0.1;
+            this.car_2.rotation -= this.carRotation;
         }   
         if (this.wasdCursors.D.isDown) {
-            this.car_2.rotation += 0.1;
+            this.car_2.rotation += this.carRotation;
         }
 
         if(this.wasdCursors.W.isDown)
