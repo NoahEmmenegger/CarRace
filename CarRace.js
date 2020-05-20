@@ -4,12 +4,19 @@ class CarRace extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('land', './assets/land.png')
+        var value = Phaser.Math.Between(0, 1);
+        if(value) 
+            this.load.image('map', './assets/land.png')
+         else 
+            this.load.image('map', './assets/dessert.png')
+
         this.load.image('street', './assets/street.png')
         this.load.image('car_1', './assets/car_1.png')
         this.load.image('car_2', './assets/car_2.png')
         this.cursors = this.input.keyboard.createCursorKeys();
         this.wasdCursors = this.input.keyboard.addKeys('W,S,A,D');
+
+
     }
 
     create() {
@@ -20,7 +27,7 @@ class CarRace extends Phaser.Scene {
         this.speedCar_2 = 0;
         this.staticFriction = 1;
 
-        this.land = this.physics.add.sprite(480, 270, 'land');
+        this.land = this.physics.add.sprite(480, 270, 'map');
         this.land.setScale(0.5)
 
         this.street = this.add.image(480, 270, 'street')
