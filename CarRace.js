@@ -13,6 +13,7 @@ class CarRace extends Phaser.Scene {
         this.load.image('street', './assets/street.png')
         this.load.image('car_1', './assets/car_1.png')
         this.load.image('car_2', './assets/car_2.png')
+        this.load.image('goalline', './assets/goalline.png')
         this.cursors = this.input.keyboard.createCursorKeys();
         this.wasdCursors = this.input.keyboard.addKeys('W,S,A,D');
 
@@ -22,6 +23,8 @@ class CarRace extends Phaser.Scene {
     create() {
         this.carSpeed = 50;
         this.carRotation = 0.1;
+        this.car_1_checkpoints = [];
+        this.car_2_checkpoints = [];
 
         this.speedCar_1 = 0;
         this.speedCar_2 = 0;
@@ -32,6 +35,9 @@ class CarRace extends Phaser.Scene {
 
         this.street = this.add.image(480, 270, 'street')
         this.street.setScale(0.5)
+
+        this.goalline = this.physics.add.image(236, 352, 'goalline');
+        this.goalline.setScale(0.5)
 
         this.car_1 = this.physics.add.image(230, 300, 'car_1');
         this.car_1.setScale(0.25)
@@ -91,10 +97,66 @@ class CarRace extends Phaser.Scene {
         r10.setVisible(false)
         this.physics.add.existing(r10);
         var car_1Physic = this.physics.add.overlap(r10, [this.car_1, this.car_2], (land, car) => this.checkCollision(land, car, car_1Physic), null, this);
+
+
+        var checkpoint_1 = this.add.rectangle(600, 38, 10, 38, 0x6666ff)
+        checkpoint_1.data = 1;
+        //checkpoint.setVisible(false)
+        this.physics.add.existing(checkpoint_1);
+        var checkpoint_1_Physic = this.physics.add.overlap(checkpoint_1, [this.car_1, this.car_2], (checkpoint, car) => this.checkpointEvent(checkpoint, car), null, this)
+
+        var checkpoint_2 = this.add.rectangle(600, 350, 10, 38, 0x6666ff)
+        checkpoint_2.data = 2;
+        //checkpoint.setVisible(false)
+        this.physics.add.existing(checkpoint_2);
+        var checkpoint_2_Physic = this.physics.add.overlap(checkpoint_2, [this.car_1, this.car_2], (checkpoint, car) => this.checkpointEvent(checkpoint, car), null, this)
+
+        this.goalline_Physic = this.physics.add.overlap(this.goalline, [this.car_1, this.car_2], (goal, car) => this.goalevent(car), null, this)
     }
 
     update(delta) {
         this.CarDriveCheck();
+    }
+
+    goalevent(car) {
+        if(car.texture.key == 'car_1' && this.car_1_checkpoints.length == 2) {
+            this.addGoalText(car)
+        }
+        
+        if(car.texture.key == 'car_2' && this.car_2_checkpoints.length == 2) {
+            this.addGoalText(car)
+        }
+    }
+
+    addGoalText(car) {
+        this.goalText = this.add.text(480, 270, car.texture.key + ' hat gewonnen!', {
+            fontSize: '32px',
+            fill: '#FF0000'
+          }).setOrigin(0.5);
+
+        this.scene.scene.time.addEvent({
+            delay: 5000,
+            callback: () => this.goalText.destroy(),
+        });
+
+        this.car_1.setPosition(230, 300)
+        this.car_1.setRotation(0)
+        this.car_1_checkpoints = []
+        this.car_2.setPosition(245, 300)
+        this.car_2.setRotation(0)
+        this.car_2_checkpoints = []
+    }
+
+    checkpointEvent(checkpoint, car) {
+        if(car.texture.key === 'car_1' && !this.car_1_checkpoints.includes(checkpoint.data)) {
+            this.car_1_checkpoints.push(checkpoint.data)
+            console.log('added checkpont')
+        }
+
+        if(car.texture.key === 'car_2' && !this.car_2_checkpoints.includes(checkpoint.data)) {
+            this.car_2_checkpoints.push(checkpoint.data)
+            console.log('added checkpont')
+        }
     }
 
     CarDriveCheck()

@@ -7,7 +7,10 @@ var config = {
         autoCenter: true
     },
     physics: {
-        default:'arcade'
+        default:'arcade',
+        arcade: {
+            debug: true
+        }
     },
     scene: [ CarRace]
 };
