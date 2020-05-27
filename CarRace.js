@@ -103,13 +103,13 @@ class CarRace extends Phaser.Scene {
 
         var checkpoint_1 = this.add.rectangle(600, 38, 10, 38, 0x6666ff)
         checkpoint_1.data = 1;
-        //checkpoint.setVisible(false)
+        checkpoint_1.setVisible(false)
         this.physics.add.existing(checkpoint_1);
         var checkpoint_1_Physic = this.physics.add.overlap(checkpoint_1, [this.car_1, this.car_2], (checkpoint, car) => this.checkpointEvent(checkpoint, car), null, this)
 
         var checkpoint_2 = this.add.rectangle(600, 350, 10, 38, 0x6666ff)
         checkpoint_2.data = 2;
-        //checkpoint.setVisible(false)
+        checkpoint_2.setVisible(false)
         this.physics.add.existing(checkpoint_2);
         var checkpoint_2_Physic = this.physics.add.overlap(checkpoint_2, [this.car_1, this.car_2], (checkpoint, car) => this.checkpointEvent(checkpoint, car), null, this)
 
