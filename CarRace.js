@@ -40,13 +40,13 @@ class CarRace extends Phaser.Scene {
         this.goalline.setScale(0.5)
 
         this.car_1 = this.physics.add.image(230, 300, 'car_1');
-        this.car_1.setScale(0.1)
+        this.car_1.setScale(0.2)
         this.car_1.body.setSize(55, 55, 0, 0).setOffset(0, 20);
         //var car_1Physic = this.physics.add.overlap(this.land, this.car_1, (land, car) => this.checkCollision(land, car, car_1Physic), null, this);
 
 
         this.car_2 = this.physics.add.sprite(245, 300, 'car_2')
-        this.car_2.setScale(0.1)
+        this.car_2.setScale(0.2)
         this.car_2.body.setSize(55, 55, 0, 0).setOffset(0, 20);
         //var car_2Physic = this.physics.add.overlap(this.land, this.car_2, (land, car) => this.checkCollision(land, car, car_2Physic), null, this);
 
@@ -210,5 +210,7 @@ class CarRace extends Phaser.Scene {
     checkCollision(land, car, physic) {
         car.setPosition(238, 300)
         car.setRotation(0)
+        this.car_2_checkpoints = []
+        this.car_1_checkpoints = []
     }
 }
