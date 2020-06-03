@@ -210,7 +210,11 @@ class CarRace extends Phaser.Scene {
     checkCollision(land, car, physic) {
         car.setPosition(238, 300)
         car.setRotation(0)
-        this.car_2_checkpoints = []
-        this.car_1_checkpoints = []
+        if(car.texture.key === 'car_1'){
+            this.car_1_checkpoints = []
+        }
+        else if(car.texture.key === 'car_2'){
+            this.car_2_checkpoints = []
+        }
     }
 }
